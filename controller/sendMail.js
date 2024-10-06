@@ -41,24 +41,30 @@ const sendMail = async (req, res) => {
 
         // Loop through each email in the list and send emails
         for (const email of emailList) {
-            // Define email options with an attachment for each recipient
-            const mailOptions = {
-                from: process.env.GMAIL_USER,                // Sender address
-                to: email,                                   // Recipient email address
-                subject: 'Application for Full-Stack Web Development Internship',    // Subject
-                html: emailTemplate,                        // Email body
-                attachments: [
-                    {
-                        filename: 'Resume_Divyanshu.pdf',   // Name of the attached file
-                        path: pdfPath,                     // Path to the file on the system
-                        contentType: 'application/pdf'      // MIME type for the PDF
-                    }
-                ]
-            };
+            try {
+                // Define email options with an attachment for each recipient
+                const mailOptions = {
+                    from: process.env.GMAIL_USER,                // Sender address
+                    to: email,                                   // Recipient email address
+                    subject: 'Application for Full-Stack Web Development Internship',    // Subject
+                    html: emailTemplate,                        // Email body
+                    attachments: [
+                        {
+                            filename: 'Resume_Divyanshu.pdf',   // Name of the attached file
+                            path: pdfPath,                     // Path to the file on the system
+                            contentType: 'application/pdf'      // MIME type for the PDF
+                        }
+                    ]
+                };
 
-            // Send email to the current recipient
-            await transporter.sendMail(mailOptions);
-            console.log(`Email sent to ${email}`);
+                // Send email to the current recipient
+                await transporter.sendMail(mailOptions);
+                console.log(`Email sent to ${email}`);
+            } catch (emailError) {
+                console.error(`Error sending email to ${email}:`, emailError.message);
+                // Optionally, you can send a response back for this email failure
+                // res.status(500).send(`Error sending email to ${email}`);
+            }
         }
 
         res.send("Emails sent successfully via Gmail to all recipients with a PDF attachment!");
@@ -66,6 +72,6 @@ const sendMail = async (req, res) => {
         console.error("Error sending emails:", error);
         res.status(500).send("Error sending emails");
     }
-}
+};
 
 module.exports = sendMail;
