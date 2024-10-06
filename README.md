@@ -8,7 +8,7 @@ To get started with this project, follow these steps:
 
 1. **Install the required packages**:
    ```bash
-   npm install nodemailer
+   npm install
    ```
 
 2. **Set up environment variables**:
