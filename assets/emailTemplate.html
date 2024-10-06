@@ -23,6 +23,7 @@
             font-size: 16px;
             line-height: 1.5;
             color: #555;
+            text-align: justify; /* Add justification */
         }
         .footer {
             margin-top: 20px;
@@ -30,15 +31,36 @@
             color: #999;
             text-align: center;
         }
+        .strong-text {
+            font-weight: bold;
+        }
+        .italic-text {
+            font-style: italic;
+            text-align: left; /* Keep the italic-text paragraph left-aligned */
+        }
     </style>
 </head>
 <body>
     <div class="email-container">
-        <p>This is a <strong>test email</strong> sent using Nodemailer and Gmail.</p>
-        <p>We hope you find this email <em>beautiful</em> and easy to read. Feel free to customize this template!</p>
-        <div class="footer">
-            <p>Sent via Nodemailer</p>
-        </div>
+        <h3>Dear HR Team,</h3>
+        <p>I hope this message finds you well. My name is <span class="strong-text">Divyanshu Singh</span>, currently a Computer Science Engineering student in my 5th semester at Chandigarh University. I am writing to express my interest in the full-stack web development internship at <span class="strong-text">StandInCrowd</span>.</p>
+        
+        <p>I have hands-on experience in full-stack development, having worked on several projects such as a <span class="strong-text">Camp-Finder web application</span> built using the MERN stack, where users can perform CRUD operations to manage campgrounds with a user-friendly design. Additionally, I developed a <span class="strong-text">Face Recognition-Based Attendance System</span> using Python, OpenCV, and Tkinter, and an <span class="strong-text">Avalanche Prediction Model</span> leveraging machine learning techniques.</p>
+        
+        <p>I also had the opportunity to intern at <span class="strong-text">Prodigy InfoTech</span>, contributing to both front-end and back-end development, and debugging web applications to ensure performance optimization.</p>
+        
+        <p>You can find more details about my projects and technical skills on my portfolio website: <a href="https://dev-divyanshu.netlify.app" class="strong-text">dev-divyanshu.netlify.app</a>.</p>
+        
+        <p>As I am currently pursuing my degree, I may not be able to work on-site during the weekdays until after 5 PM, but I would be happy to visit your office on Saturdays and Sundays if that works for you.</p>
+        
+        <p>Thank you for considering my application. I am excited about the possibility of contributing to your team and look forward to the opportunity to discuss this further.</p>
+        
+        <p class="italic-text">Best regards,<br>
+        Divyanshu Singh<br>
+        <a href="https://linkedin.com/in/divyanshu-singh" class="strong-text">LinkedIn</a> | <a href="https://dev-divyanshu.netlify.app" class="strong-text">Portfolio</a><br>
+        Phone: +91-9879618851<br>
+        Email: <a href="mailto:singhdivyanshu975@gmail.com" class="strong-text">singhdivyanshu975@gmail.com</a></p>
+
     </div>
 </body>
 </html>
