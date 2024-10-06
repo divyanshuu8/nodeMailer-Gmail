@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const nodemailer = require('nodemailer');
+const xlsx = require('xlsx');  // Add xlsx to read Excel files
 
 // Read the email template
 const emailTemplate = fs.readFileSync(path.join(__dirname, '../assets/emailTemplate.html'), 'utf8');
@@ -19,32 +20,51 @@ const transporter = nodemailer.createTransport({
     }
 });
 
+// Function to read emails from Excel file
+const getEmailsFromExcel = (filePath) => {
+    const workbook = xlsx.readFile(filePath);  // Read the Excel file
+    const sheetName = workbook.SheetNames[0];  // Get the first sheet
+    const worksheet = workbook.Sheets[sheetName];
+
+    const emailData = xlsx.utils.sheet_to_json(worksheet);  // Convert sheet to JSON format
+    return emailData.map(row => row.Email);  // Assuming the column header for emails is 'Email'
+};
+
 const sendMail = async (req, res) => {
     try {
+        // Path to the Excel file containing emails
+        const excelFilePath = path.join(__dirname, '../assets/emailList.xlsx');
+        const emailList = getEmailsFromExcel(excelFilePath);
+
         // Define the path to the PDF file
         const pdfPath = path.join(__dirname, '../assets/Resume_Divyanshu.pdf');
 
-        // Define email options with an attachment
-        const mailOptions = {
-            from: process.env.GMAIL_USER,                // Sender address
-            to: 'harshad622004fozdar@gmail.com',         // Recipient email address
-            subject: 'Application for Full-Stack Web Development Internship',    // Subject
-            html: emailTemplate,                        // Email body
-            attachments: [
-                {
-                    filename: 'Resume_Divyanshu.pdf',            // Name of the attached file
-                    path: pdfPath,                     // Path to the file on the system
-                    contentType: 'application/pdf'      // MIME type for the PDF
-                }
-            ]
-        };
+        // Loop through each email in the list and send emails
+        for (const email of emailList) {
+            // Define email options with an attachment for each recipient
+            const mailOptions = {
+                from: process.env.GMAIL_USER,                // Sender address
+                to: email,                                   // Recipient email address
+                subject: 'Application for Full-Stack Web Development Internship',    // Subject
+                html: emailTemplate,                        // Email body
+                attachments: [
+                    {
+                        filename: 'Resume_Divyanshu.pdf',   // Name of the attached file
+                        path: pdfPath,                     // Path to the file on the system
+                        contentType: 'application/pdf'      // MIME type for the PDF
+                    }
+                ]
+            };
 
-        // Send email
-        await transporter.sendMail(mailOptions);
-        res.send("Mail sent successfully via Gmail with a PDF attachment!");
+            // Send email to the current recipient
+            await transporter.sendMail(mailOptions);
+            console.log(`Email sent to ${email}`);
+        }
+
+        res.send("Emails sent successfully via Gmail to all recipients with a PDF attachment!");
     } catch (error) {
-        console.error("Error sending email:", error);
-        res.status(500).send("Error sending email");
+        console.error("Error sending emails:", error);
+        res.status(500).send("Error sending emails");
     }
 }
 
