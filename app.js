@@ -6,12 +6,12 @@ const bodyParser = require("body-parser");
 const sendMailClient = require("./controller/sendMailClient"); // Import the sendMailClient function
 const sendMailFreelancer = require("./controller/SendMailFreelancer");
 
-let port = 5000;
+const port = process.env.PORT || 5001;
 const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // Allow requests only from this origin
+    origin: "https://dev-divyanshu.netlify.app", // Allow requests only from this origin
     methods: "GET,POST", // Allow only GET and POST requests
     credentials: true, // Allow credentials (cookies, authorization headers, etc.)
   })
