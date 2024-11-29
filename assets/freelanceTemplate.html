@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Request Confirmation</title>
+    <style>
+      .email-container {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+      }
+      .strong-text {
+        font-weight: bold;
+      }
+      .italic-text {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <h3>Dear Divyanshu,</h3>
+      <p>
+        We have successfully received an enquiry. Here are the details we've received:
+      </p>
+
+      <table style="width: 100%; border-collapse: collapse;">
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; width: 30%;"><strong>Name:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">{{name}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; width: 30%;"><strong>Email:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">{{email}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; width: 30%;"><strong>Mobile:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">{{mobile}}</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px; border: 1px solid #ddd; width: 30%;"><strong>Service Requested:</strong></td>
+          <td style="padding: 8px; border: 1px solid #ddd;">{{service}}</td>
+        </tr>
+      </table>
+
+      <p>
+        Contact them ASAP!!!
+      </p>
+
+      <p class="italic-text">
+        Best regards,<br />
+        The Team<br />
+        Phone: +91-9879618851<br />
+        Email: <a href="mailto:singhdivyanshu975@gmail.com" class="strong-text">singhdivyanshu975@gmail.com</a><br />
+        Portfolio: <a href="https://dev-divyanshu.netlify.app" class="strong-text">dev-divyanshu.netlify.app</a>
+      </p>
+    </div>
+  </body>
+</html>
