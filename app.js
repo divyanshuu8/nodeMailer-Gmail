@@ -35,16 +35,18 @@ app.post("/divyanshu", async (req, res) => {
   }
 
   try {
-    // Call sendMailClient function to send an email to the client
-    await sendMailClient(req.body);
+    // Send emails asynchronously using Promise.all
+    // These functions will be executed in parallel without blocking the response
+    const clientEmailPromise = sendMailClient(req.body);
+    const freelancerEmailPromise = sendMailFreelancer(req.body);
 
-    // Call sendMailFreelancer function to send an email to the freelancer
-    await sendMailFreelancer(req.body);
+    // Send the response immediately after starting the email sending
+    res.status(200).json({ message: "Form submitted successfully!" });
 
-    // Send response indicating success
-    res
-      .status(200)
-      .json({ message: "Form submitted and emails sent successfully!" });
+    // Wait for both emails to finish, but don't block the response
+    await Promise.all([clientEmailPromise, freelancerEmailPromise]);
+
+    console.log("Emails sent successfully!");
   } catch (error) {
     console.error("Error submitting form:", error);
     res.status(500).json({ message: "Internal server error" });
