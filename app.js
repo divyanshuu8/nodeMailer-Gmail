@@ -10,7 +10,7 @@ const sendMailFreelancer = require("./controller/SendMailFreelancer");
 const port = process.env.PORT || 5001;
 const app = express();
 
-app.use(
+/*app.use(
   cors({
     origin: (origin, callback) => {
       // Allow requests from localhost (for local dev) and your production URL
@@ -27,7 +27,12 @@ app.use(
     methods: "GET, POST", // Allow only GET and POST methods
     credentials: true, // Allow credentials (cookies, etc.)
   })
-);
+);*/
+
+app.use(cors());
+
+
+
 app.use(express.json()); // Parse JSON bodies
 app.use(bodyParser.json());
 
