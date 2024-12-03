@@ -12,9 +12,20 @@ const app = express();
 
 app.use(
   cors({
-    origin: "https://dev-divyanshu.netlify.app", // Allow requests only from this origin
-    methods: "GET,POST", // Allow only GET and POST requests
-    credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+    origin: (origin, callback) => {
+      // Allow requests from localhost (for local dev) and your production URL
+      const allowedOrigins = [
+        "http://localhost:3000",
+        "https://dev-divyanshu.netlify.app",
+      ];
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true); // Allow the request
+      } else {
+        callback(new Error("Not allowed by CORS")); // Deny the request
+      }
+    },
+    methods: "GET, POST", // Allow only GET and POST methods
+    credentials: true, // Allow credentials (cookies, etc.)
   })
 );
 app.use(express.json()); // Parse JSON bodies
