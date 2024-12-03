@@ -3,6 +3,7 @@ require("dotenv").config();
 const cors = require("cors"); // Import the cors package
 const sendMail = require("./controller/sendMail");
 const bodyParser = require("body-parser");
+const sendMailGD = require("./controller/sendMail-GD-Ent");
 const sendMailClient = require("./controller/sendMailClient"); // Import the sendMailClient function
 const sendMailFreelancer = require("./controller/SendMailFreelancer");
 
@@ -21,6 +22,28 @@ app.use(bodyParser.json());
 
 app.get("/", (req, res) => {
   res.send("i am server");
+});
+
+app.post("/gdent", async (req, res) => {
+  // Log the incoming data
+  console.log(req.body);
+
+  try {
+    // Send emails asynchronously using Promise.all
+    // These functions will be executed in parallel without blocking the response
+    const sendMailGDEnt = sendMailGD(req.body);
+
+    // Send the response immediately after starting the email sending
+    res.status(200).json({ message: "Form submitted successfully!" });
+
+    // Wait for both emails to finish, but don't block the response
+    await Promise.all([sendMailGDEnt]);
+
+    console.log("Emails sent successfully!");
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 app.post("/divyanshu", async (req, res) => {

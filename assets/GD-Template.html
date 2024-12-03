@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Request Confirmation</title>
+    <style>
+      .email-container {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+        margin: 20px;
+      }
+      .strong-text {
+        font-weight: bold;
+      }
+      .italic-text {
+        font-style: italic;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="email-container">
+      <h3>Dear {{name}},</h3>
+      <p>
+        We have successfully received an enquiry. Here are the details we've
+        received:
+      </p>
+
+      <p class="italic-text">
+        Best regards,<br />
+        The Team<br />
+      </p>
+    </div>
+  </body>
+</html>
